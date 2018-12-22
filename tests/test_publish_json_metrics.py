@@ -11,11 +11,13 @@ class TestPublishJsonMetrics(TestCase):
     @mock_cloudwatch
     def test_should_publish_a_metric_from_json(self):
         client = boto3.client('cloudwatch', 'eu-west-1')
-        publish_metrics(client, json.loads("{\"EC2/Varnish\": ["
-                                              "{\"Hits\": 1, \"Type\":\"Count\"}"
-                                              "]}"))
+        publish_metrics(client, json.loads('{"EC2/Varnish": ['
+                                           '{"Hits": 1, "Type":"Count"}, '
+                                           '{"Misses": 2, "Type":"Count"}, '
+                                           '{"Uptime": 230, "Type":"Seconds"}'
+                                           ']}'))
         metrics = client.list_metrics()['Metrics']
-        metrics.should.have.length_of(1)
+        metrics.should.have.length_of(3)
         metric = metrics[0]
         metric['Namespace'].should.equal('EC2/Varnish')
         metric['MetricName'].should.equal('Hits')
@@ -23,11 +25,11 @@ class TestPublishJsonMetrics(TestCase):
     @mock_cloudwatch
     def test_should_publish_several_metrics_from_json(self):
         client = boto3.client('cloudwatch', 'eu-west-1')
-        publish_metrics(client, json.loads("{\"EC2/Varnish\": ["
-                                              "{\"Hits\": 1, \"Type\":\"Count\"}, "
-                                              "{\"Misses\": 2, \"Type\":\"Count\"}, "
-                                              "{\"Uptime\": 230, \"Type\":\"Seconds\"}"
-                                              "]}"))
+        publish_metrics(client, json.loads('{"EC2/Varnish": ['
+                                           '{"Hits": 1, "Type":"Count"}, '
+                                           '{"Misses": 2, "Type":"Count"}, '
+                                           '{"Uptime": 230, "Type":"Seconds"}'
+                                           ']}'))
         metrics = client.list_metrics()['Metrics']
         metrics.should.have.length_of(3)
         metric = metrics[0]
