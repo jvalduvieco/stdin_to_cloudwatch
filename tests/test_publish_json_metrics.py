@@ -12,9 +12,9 @@ class TestPublishJsonMetrics(TestCase):
     def test_should_publish_a_metric_from_json(self):
         client = boto3.client('cloudwatch', 'eu-west-1')
         publish_metrics(client, json.loads('{"EC2/Varnish": ['
-                                           '{"Hits": 1, "Type":"Count"}, '
-                                           '{"Misses": 2, "Type":"Count"}, '
-                                           '{"Uptime": 230, "Type":"Seconds"}'
+                                           '{"Hits": 1, "Units":"Count"}, '
+                                           '{"Misses": 2, "Units":"Count"}, '
+                                           '{"Uptime": 230, "Units":"Seconds"}'
                                            ']}'))
         metrics = client.list_metrics()['Metrics']
         metrics.should.have.length_of(3)
@@ -26,9 +26,9 @@ class TestPublishJsonMetrics(TestCase):
     def test_should_publish_several_metrics_from_json(self):
         client = boto3.client('cloudwatch', 'eu-west-1')
         publish_metrics(client, json.loads('{"EC2/Varnish": ['
-                                           '{"Hits": 1, "Type":"Count"}, '
-                                           '{"Misses": 2, "Type":"Count"}, '
-                                           '{"Uptime": 230, "Type":"Seconds"}'
+                                           '{"Hits": 1, "Units":"Count"}, '
+                                           '{"Misses": 2, "Units":"Count"}, '
+                                           '{"Uptime": 230, "Units":"Seconds"}'
                                            ']}'))
         metrics = client.list_metrics()['Metrics']
         metrics.should.have.length_of(3)

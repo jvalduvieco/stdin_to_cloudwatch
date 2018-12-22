@@ -8,12 +8,12 @@ def publish_metrics(client, metrics_data, instance_id=None):
 
 def process_namespace_metrics(metrics, instance_id=None):
     result = []
-    catcher_keys = ['Type']
+    catcher_keys = ['Units']
     for metric in metrics:
         if len(metric.keys()) != len(catcher_keys) + 1:
             raise RuntimeError('Wrong object format \'%s\'' % metric)
         key_name = [name for name in metric.keys() if name not in catcher_keys][0]
-        result.append(build_one_metric(key_name, metric[key_name], metric['Type'], instance_id))
+        result.append(build_one_metric(key_name, metric[key_name], metric['Units'], instance_id))
     return result
 
 

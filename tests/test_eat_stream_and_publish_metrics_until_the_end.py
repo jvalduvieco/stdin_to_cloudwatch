@@ -11,7 +11,7 @@ class TestEatStreamAndPublishMetricsUntilTheEnd(TestCase):
     def test_eat_stream_and_publish_metrics_until_the_end(self):
         client = boto3.client('cloudwatch', region_name='eu-west-1')
         output = []
-        a_stream = ['Error!', '{"EC2/Varnish": [{"Hits": 1, "Type":"Count"}]}', "Warning"]
+        a_stream = ['Error!', '{"EC2/Varnish": [{"Hits": 1, "Units":"Count"}]}', "Warning"]
         eat_stream_and_publish_metrics_until_the_end(input_stream=a_stream,
                                                      cw_client=client, output_function=lambda txt:output.append(txt),
                                                      instance_id=None, input_adapter=adapt_doing_nothing)
@@ -29,7 +29,7 @@ class TestEatStreamAndPublishMetricsUntilTheEnd(TestCase):
         client = boto3.client('cloudwatch', region_name='eu-west-1')
         output = []
         a_stream = ['[22/Dec/2018 00:42:40] ERROR Error!',
-                    r"""[22/Dec/2018 00:43:40] INFO {"Environ/ContentFetchingCron": [{"ScrapingExecutionTime": 2558219, "Type": "Milliseconds"}]}""",
+                    r"""[22/Dec/2018 00:43:40] INFO {"Environ/ContentFetchingCron": [{"ScrapingExecutionTime": 2558219, "Units": "Milliseconds"}]}""",
                     "[22/Dec/2018 00:44:40] WARN Warning"]
         eat_stream_and_publish_metrics_until_the_end(input_stream=a_stream,
                                                      cw_client=client, output_function=lambda txt:output.append(txt),
