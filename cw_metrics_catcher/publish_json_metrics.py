@@ -1,9 +1,6 @@
-import json
-
-
 def publish_metrics(client, metrics_data, instance_id=None):
     [client.put_metric_data(MetricData=process_namespace_metrics(metrics, instance_id), Namespace=namespace)
-        for (namespace, metrics) in metrics_data.items()]
+     for (namespace, metrics) in metrics_data.items()]
 
 
 def process_namespace_metrics(metrics, instance_id=None):
