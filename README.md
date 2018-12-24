@@ -23,4 +23,4 @@ Possible values for `Units` are:
 
 
 ## Intention
-Intention behind this tool is to decoupple metrics publishing from the main app. With this tool publishing is a responsibility of infrastructure.
+Intention behind this tool is to decouple metrics publishing from the main app. With this tool publishing is a responsibility of infrastructure.
