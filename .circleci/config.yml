@@ -8,8 +8,9 @@ jobs:
     docker:
       - image: circleci/python:2.7
     environment:
-      AWS_SECRET_ACCESS_KEY=foobar_secret
-      AWS_ACCESS_KEY_ID=foobar_key
+      - AWS_SECRET_ACCESS_KEY=foobar_secret
+      - AWS_ACCESS_KEY_ID=foobar_key
+      - PIPENV_VENV_IN_PROJECT=1
 
     steps:
       - checkout
