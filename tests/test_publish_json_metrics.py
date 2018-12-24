@@ -3,7 +3,7 @@ from unittest import TestCase
 
 import boto3
 from moto import mock_cloudwatch
-from cw_metrics_catcher.publish_json_metrics import publish_metrics
+from stdin_to_cloudwatch.publish_json_metrics import publish_metrics
 import sure  # noqa
 
 

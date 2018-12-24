@@ -2,8 +2,8 @@ from unittest import TestCase
 import boto3
 from moto import mock_cloudwatch
 
-from cw_metrics_catch import eat_stream_and_publish_metrics_until_the_end, adapt_doing_nothing, adapt_django_logs
-import sure  # noqa
+from stdin_to_cloudwatch.input_adapters import adapt_doing_nothing, adapt_django_logs
+from stdin_to_cloudwatch.stream_consumer import eat_stream_and_publish_metrics_until_the_end
 
 
 class TestEatStreamAndPublishMetricsUntilTheEnd(TestCase):

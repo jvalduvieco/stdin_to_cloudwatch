@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from cw_metrics_catcher.publish_json_metrics import process_namespace_metrics
+from stdin_to_cloudwatch.publish_json_metrics import process_namespace_metrics
 import sure  # noqa
 
 
