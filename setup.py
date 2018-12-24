@@ -1,5 +1,5 @@
 import setuptools
-import pathlib
+import pathlib2 as pathlib
 
 # The directory containing this file
 HERE = pathlib.Path(__file__).parent
@@ -9,7 +9,7 @@ README = (HERE / "README.md").read_text()
 
 setuptools.setup(
     name="stdin_to_cloudwatch",
-    version="0.0.1",
+    version="0.0.2",
     author="Joan Valduvieco",
     author_email="jvalduvieco@gmail.com",
     description="Intercepts metrics from stding and sends them to AWS cloudwatch",
@@ -22,5 +22,6 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
+    install_requires=["boto3", "urllib3"],
     entry_points={"console_scripts": ["stdin_to_cloudwatch=stdin_to_cloudwatch.__main__:main"]},
 )
