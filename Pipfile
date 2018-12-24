@@ -9,9 +9,6 @@ test = "pipenv run python -m unittest discover -s tests -t ."
 [dev-packages]
 moto = "*"
 sure = "*"
-funcsigs = "*"
-ipaddress = "*"
-enum = "*"
 
 [packages]
 boto3 = "*"
