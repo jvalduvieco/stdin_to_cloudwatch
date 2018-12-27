@@ -11,6 +11,7 @@ build ="pipenv run python setup.py sdist bdist_wheel"
 moto = "*"
 sure = "*"
 twine = "*"
+pathlib = "*"
 
 [packages]
 boto3 = "*"

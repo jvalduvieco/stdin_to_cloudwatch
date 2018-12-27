@@ -6,7 +6,7 @@ import setuptools
 from setuptools.command.install import install
 
 # circleci.py version
-VERSION = "0.0.1"
+VERSION = "0.0.2"
 
 # The directory containing this file
 HERE = pathlib.Path(__file__).parent
@@ -31,7 +31,7 @@ class VerifyVersionCommand(install):
 
 setuptools.setup(
     name="stdin_to_cloudwatch",
-    version="0.0.1",
+    version=VERSION,
     author="Joan Valduvieco",
     author_email="jvalduvieco@gmail.com",
     description="Intercepts metrics from stding and sends them to AWS cloudwatch",
