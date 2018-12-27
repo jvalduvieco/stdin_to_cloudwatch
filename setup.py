@@ -6,7 +6,7 @@ import setuptools
 from setuptools.command.install import install
 
 # circleci.py version
-VERSION = "0.0.5"
+VERSION = "0.0.6"
 
 # The directory containing this file
 HERE = pathlib2.Path(__file__).parent
@@ -38,7 +38,7 @@ setuptools.setup(
     long_description=README,
     long_description_content_type="text/markdown",
     url="https://github.com/jvalduvieco/stdin_to_cloudwatch",
-    packages=setuptools.find_packages(),
+    packages=["stdin_to_cloudwatch"],
     classifiers=[
         "Programming Language :: Python :: 2",
         "License :: OSI Approved :: MIT License",
