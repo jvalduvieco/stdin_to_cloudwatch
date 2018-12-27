@@ -1,15 +1,15 @@
 import os
-import pathlib
 import sys
+import pathlib2
 
 import setuptools
 from setuptools.command.install import install
 
 # circleci.py version
-VERSION = "0.0.2"
+VERSION = "0.0.3"
 
 # The directory containing this file
-HERE = pathlib.Path(__file__).parent
+HERE = pathlib2.Path(__file__).parent
 
 # The text of the README file
 README = (HERE / "README.md").read_text()
@@ -44,6 +44,9 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
+    cmdclass={
+        'verify': VerifyVersionCommand,
+    },
     python_requires='>=2.7',
     entry_points={"console_scripts": ["stdin_to_cloudwatch=stdin_to_cloudwatch.__main__:main"]},
 )
