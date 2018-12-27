@@ -6,7 +6,7 @@ import setuptools
 from setuptools.command.install import install
 
 # circleci.py version
-VERSION = "0.0.3"
+VERSION = "0.0.4"
 
 # The directory containing this file
 HERE = pathlib2.Path(__file__).parent
