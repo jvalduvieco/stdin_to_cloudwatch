@@ -48,5 +48,6 @@ setuptools.setup(
         'verify': VerifyVersionCommand,
     },
     python_requires='>=2.7',
+    install_requires=['boto3', 'urllib3'],
     entry_points={"console_scripts": ["stdin_to_cloudwatch=stdin_to_cloudwatch.__main__:main"]},
 )
