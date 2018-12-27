@@ -5,8 +5,7 @@ import pathlib2
 import setuptools
 from setuptools.command.install import install
 
-# circleci.py version
-VERSION = "0.0.6"
+VERSION = "0.0.7"
 
 # The directory containing this file
 HERE = pathlib2.Path(__file__).parent
@@ -34,7 +33,7 @@ setuptools.setup(
     version=VERSION,
     author="Joan Valduvieco",
     author_email="jvalduvieco@gmail.com",
-    description="Intercepts metrics from stding and sends them to AWS cloudwatch",
+    description="Intercepts json formatted metrics from process stdin and sends to AWS Cloudwatch",
     long_description=README,
     long_description_content_type="text/markdown",
     url="https://github.com/jvalduvieco/stdin_to_cloudwatch",
@@ -48,6 +47,6 @@ setuptools.setup(
         'verify': VerifyVersionCommand,
     },
     python_requires='>=2.7',
-    install_requires=['boto3', 'urllib3'],
+    install_requires=['boto3'],
     entry_points={"console_scripts": ["stdin_to_cloudwatch=stdin_to_cloudwatch.__main__:main"]},
 )
