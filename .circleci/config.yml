@@ -40,7 +40,7 @@ jobs:
 
       - save_cache:
           paths:
-            - ./venv
+            - ./.venv
           key: v1-dependencies-{{ checksum "Pipfile.lock" }}
 
       - run:
@@ -63,7 +63,7 @@ jobs:
         - save_cache:
             key: v1-dependencies-{{ checksum "Pipfile.lock" }}
             paths:
-              - ./venv
+              - ./.venv
         - run:
             name: verify git tag vs. version
             command: |
