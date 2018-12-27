@@ -14,7 +14,7 @@ def check_arguments():
         sys.exit(1)
 
 
-if __name__ == "__main__":
+def main():
     check_arguments()
     input_adapter = sys.argv[1]
     aws_region = sys.argv[2]
@@ -25,3 +25,7 @@ if __name__ == "__main__":
                                                  input_stream=sys.stdin,
                                                  instance_id=aws_instance_id if len(sys.argv) == 4 else None,
                                                  output_function=stdout_print)
+
+
+if __name__ == "__main__":
+    main()
