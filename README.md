@@ -1,6 +1,7 @@
 # stdin_to_cloudwatch
 
 [![CircleCI](https://circleci.com/gh/jvalduvieco/stdin_to_cloudwatch/tree/master.svg?style=svg)](https://circleci.com/gh/jvalduvieco/stdin_to_cloudwatch/tree/master)
+[![](https://img.shields.io/pypi/dm/stdin-to-cloudwatch.svg?style=plastic)](https://pypi.org/project/stdin-to-cloudwatch/)
 
 This tool is intended to process input fromstdin and publish some metrics encoded in the log stream.
 It looks for log lines that match a certain format and publishes to Cloudwatch metrics. The lines that not match are neither
