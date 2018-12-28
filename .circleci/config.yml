@@ -1,8 +1,20 @@
-# Python CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-python/ for more details
-#
 version: 2
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - build:
+          filters:
+            tags:
+              only: /.*/
+      - deploy:
+          requires:
+            - build
+          filters:
+            tags:
+              only: /[0-9]+(\.[0-9]+)*/
+            branches:
+              ignore: /.*/
 jobs:
   build:
     docker:
@@ -28,7 +40,7 @@ jobs:
 
       - save_cache:
           paths:
-            - ./venv
+            - ./.venv
           key: v1-dependencies-{{ checksum "Pipfile.lock" }}
 
       - run:
@@ -36,3 +48,37 @@ jobs:
           command: |
              pipenv run test
 
+  deploy:
+      docker:
+        - image: circleci/python:2.7
+      steps:
+        - checkout
+        - restore_cache:
+            key: v1-dependencies-{{ checksum "Pipfile.lock" }}
+        - run:
+            name: install python dependencies
+            command: |
+              sudo pip install pipenv
+              pipenv install --dev
+        - save_cache:
+            key: v1-dependencies-{{ checksum "Pipfile.lock" }}
+            paths:
+              - ./.venv
+        - run:
+            name: verify git tag vs. version
+            command: |
+              pipenv run python setup.py verify
+        - run:
+            name: init .pypirc
+            command: |
+              echo -e "[pypi]" >> ~/.pypirc
+              echo -e "username = $PYPI_USERNAME" >> ~/.pypirc
+              echo -e "password = $PYPI_PASSWORD" >> ~/.pypirc
+        - run:
+            name: create packages
+            command: |
+              pipenv run build
+        - run:
+            name: upload to pypi
+            command: |
+              pipenv run twine upload dist/*
