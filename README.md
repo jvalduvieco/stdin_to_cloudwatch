@@ -1,4 +1,7 @@
 # stdin_to_cloudwatch
+
+[![CircleCI](https://circleci.com/gh/jvalduvieco/stdin_to_cloudwatch/tree/master.svg?style=svg)](https://circleci.com/gh/jvalduvieco/stdin_to_cloudwatch/tree/master)
+
 This tool is intended to process input fromstdin and publish some metrics encoded in the log stream.
 It looks for log lines that match a certain format and publishes to Cloudwatch metrics. The lines that not match are neither
 filtered nor altered and are written to stdout.
