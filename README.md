@@ -26,9 +26,12 @@ Possible values for `Units` are:
 
 ## Usage
 ```
-your_script | stdin_to_cloudwatch <django|none> <region> [instance_id]
+your_script | stdin_to_cloudwatch -i <django|none> -r <region> [-d <DimensionName=DimensionValue>]
 ```
 
+Use `stdin_to_cloudwatch -h` for help.
+
 AWS credentials are managed by boto3, so refer to boto [documentation](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/quickstart.html#configuration) for further information.
+
 ## Intention
 Intention behind this tool is to decouple metrics publishing from the main app. With this tool publishing is a responsibility of infrastructure.

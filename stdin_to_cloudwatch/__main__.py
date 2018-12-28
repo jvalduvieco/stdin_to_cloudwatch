@@ -1,4 +1,6 @@
+import os
 import sys
+import argparse
 
 import boto3
 
@@ -7,25 +9,36 @@ from stdin_to_cloudwatch.output_adapters import stdout_print
 from stdin_to_cloudwatch.stream_consumer import eat_stream_and_publish_metrics_until_the_end
 
 
-def check_arguments():
-    if len(sys.argv) < 3:
-        print("Wrong number of arguments!")
-        print("Usage: stdin_to_cloudwatch <django|none> <region> [instance_id]")
-        sys.exit(1)
+def main(input_stream, args, stdout_callback):
+    try:
+        args = parse_arguments(args)
+
+        client = boto3.client('cloudwatch', region_name=args.region)
+        eat_stream_and_publish_metrics_until_the_end(cw_client=client,
+                                                     input_adapter=decide_input_adapter(args.input_adapter),
+                                                     input_stream=input_stream,
+                                                     dimensions=build_dimensions_array(args),
+                                                     output_function=stdout_callback)
+        return os.EX_OK
+    except Exception as e:
+        print (e)
+        return os.EX_SOFTWARE
 
 
-def main():
-    check_arguments()
-    input_adapter = sys.argv[1]
-    aws_region = sys.argv[2]
-    aws_instance_id = sys.argv[3] if len(sys.argv) == 4 else None
-    client = boto3.client('cloudwatch', region_name=aws_region)
-    eat_stream_and_publish_metrics_until_the_end(cw_client=client,
-                                                 input_adapter=decide_input_adapter(input_adapter),
-                                                 input_stream=sys.stdin,
-                                                 instance_id=aws_instance_id,
-                                                 output_function=stdout_print)
+def parse_arguments(args):
+    parser = argparse.ArgumentParser(
+        description='Ingest stdin, publish metrics to cloudwatch, pass through the rest.')
+    parser.add_argument('-d', '--dimensions', nargs='+', default=[])
+    parser.add_argument('-r', '--region', nargs='?', help='desired AWS Cloudwatch region ', required=True)
+    parser.add_argument('-i', '--input_adapter', choices=['none', 'django'], nargs='?', required=True,
+                        help='function applied to all input lines to remove timestamps, levels, ...')
+    args = parser.parse_args(args)
+    return args
+
+
+def build_dimensions_array(args):
+    return [tuple(s.split('=')) for s in args.dimensions]
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main(sys.stdin, sys.argv[1:], stdout_print))

@@ -4,7 +4,7 @@ from moto import mock_cloudwatch
 
 from stdin_to_cloudwatch.input_adapters import adapt_doing_nothing, adapt_django_logs
 from stdin_to_cloudwatch.stream_consumer import eat_stream_and_publish_metrics_until_the_end
-
+import sure  # noqa
 
 class TestEatStreamAndPublishMetricsUntilTheEnd(TestCase):
     @mock_cloudwatch
@@ -14,7 +14,7 @@ class TestEatStreamAndPublishMetricsUntilTheEnd(TestCase):
         a_stream = ['Error!', '{"EC2/Varnish": [{"Hits": 1, "Units":"Count"}]}', "Warning"]
         eat_stream_and_publish_metrics_until_the_end(input_stream=a_stream,
                                                      cw_client=client, output_function=lambda txt:output.append(txt),
-                                                     instance_id=None, input_adapter=adapt_doing_nothing)
+                                                     dimensions=None, input_adapter=adapt_doing_nothing)
         metrics = client.list_metrics()['Metrics']
         metrics.should.have.length_of(1)
         metric = metrics[0]
@@ -33,7 +33,7 @@ class TestEatStreamAndPublishMetricsUntilTheEnd(TestCase):
                     "[22/Dec/2018 00:44:40] WARN Warning"]
         eat_stream_and_publish_metrics_until_the_end(input_stream=a_stream,
                                                      cw_client=client, output_function=lambda txt:output.append(txt),
-                                                     instance_id=None, input_adapter=adapt_django_logs)
+                                                     dimensions=None, input_adapter=adapt_django_logs)
         metrics = client.list_metrics()['Metrics']
         metrics.should.have.length_of(1)
         metric = metrics[0]
