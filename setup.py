@@ -5,7 +5,7 @@ import pathlib2
 import setuptools
 from setuptools.command.install import install
 
-VERSION = "0.0.14"
+VERSION = "0.0.15"
 
 # The directory containing this file
 HERE = pathlib2.Path(__file__).parent
