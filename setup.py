@@ -5,7 +5,7 @@ import pathlib2
 import setuptools
 from setuptools.command.install import install
 
-VERSION = "0.0.12"
+VERSION = "0.0.13"
 
 # The directory containing this file
 HERE = pathlib2.Path(__file__).parent
@@ -47,6 +47,6 @@ setuptools.setup(
         'verify': VerifyVersionCommand,
     },
     python_requires='>=2.7',
-    install_requires=['boto3'],
+    install_requires=['boto3', 'pathlib2'],
     entry_points={"console_scripts": ["stdin_to_cloudwatch=stdin_to_cloudwatch.__main__:run"]},
 )
