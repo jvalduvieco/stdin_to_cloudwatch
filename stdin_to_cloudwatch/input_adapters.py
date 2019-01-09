@@ -1,4 +1,7 @@
 import re
+import logging
+
+logger = logging.getLogger()
 
 
 def decide_input_adapter(adapter_name):
@@ -10,8 +13,11 @@ def adapt_doing_nothing(line):
 
 
 def adapt_django_logs(line):
-    matches = re.match(r'^\[.+\] \w+ (.+)$', line)
-    if matches:
-        return matches.groups()[0]
-    else:
-        return line
+    try:
+        matches = re.match(r'^\[.+\] \w+ (.+)$', line)
+        if matches:
+            return matches.groups()[0]
+        else:
+            return line
+    except Exception as err:
+        logger.error("Parse input. Error: %s" % err.message)

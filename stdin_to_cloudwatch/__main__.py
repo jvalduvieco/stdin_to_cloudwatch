@@ -1,12 +1,14 @@
 import os
 import sys
 import argparse
-
+import logging
 import boto3
 
 from stdin_to_cloudwatch.input_adapters import decide_input_adapter
 from stdin_to_cloudwatch.output_adapters import stdout_print
 from stdin_to_cloudwatch.stream_consumer import eat_stream_and_publish_metrics_until_the_end
+
+logger = logging.getLogger()
 
 
 def main(input_stream, args, stdout_callback):
@@ -21,7 +23,7 @@ def main(input_stream, args, stdout_callback):
                                                      output_function=stdout_callback)
         return os.EX_OK
     except Exception as e:
-        print (e)
+        logger.error(e)
         return os.EX_SOFTWARE
 
 

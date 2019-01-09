@@ -1,6 +1,14 @@
+import logging
+
+logger = logging.getLogger()
+
+
 def publish_metrics(client, metrics_data, dimensions=None):
-    [client.put_metric_data(MetricData=process_namespace_metrics(metrics, dimensions), Namespace=namespace)
-     for (namespace, metrics) in metrics_data.items()]
+    for (namespace, metrics) in metrics_data.items():
+        try:
+            client.put_metric_data(MetricData=process_namespace_metrics(metrics, dimensions), Namespace=namespace)
+        except Exception as err:
+            logger.error("Could not publish to CloudWatch. Error: %s" % err.message)
 
 
 def process_namespace_metrics(metrics, dimensions=None):
