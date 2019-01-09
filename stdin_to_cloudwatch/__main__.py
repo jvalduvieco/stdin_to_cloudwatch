@@ -40,5 +40,9 @@ def build_dimensions_array(args):
     return [tuple(s.split('=')) for s in args.dimensions]
 
 
+def run():
+    main(sys.stdin, sys.argv[1:], stdout_print)
+
+
 if __name__ == "__main__":
-    sys.exit(main(sys.stdin, sys.argv[1:], stdout_print))
+    sys.exit(run())
