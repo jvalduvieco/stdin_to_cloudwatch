@@ -22,8 +22,8 @@ def main(input_stream, args, stdout_callback):
                                                      dimensions=build_dimensions_array(args),
                                                      output_function=stdout_callback)
         return os.EX_OK
-    except Exception as e:
-        logger.error(e)
+    except:
+        logger.exception('Uncontrolled app error:')
         return os.EX_SOFTWARE
 
 

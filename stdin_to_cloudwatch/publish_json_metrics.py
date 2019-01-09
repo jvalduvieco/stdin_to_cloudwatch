@@ -7,8 +7,8 @@ def publish_metrics(client, metrics_data, dimensions=None):
     for (namespace, metrics) in metrics_data.items():
         try:
             client.put_metric_data(MetricData=process_namespace_metrics(metrics, dimensions), Namespace=namespace)
-        except Exception as err:
-            logger.error("Could not publish to CloudWatch. Error: %s" % err.message)
+        except:
+            logging.exception('Could not publish to CloudWatch.')
 
 
 def process_namespace_metrics(metrics, dimensions=None):
