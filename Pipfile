@@ -11,12 +11,11 @@ build ="pipenv run python setup.py sdist bdist_wheel"
 moto = "*"
 sure = "*"
 twine = "*"
-pathlib2 = "*"
 
 [packages]
 boto3 = "*"
 urllib3 = "*"
+pathlib = "*"
 
 [requires]
-python_version = "2.7"
-
+python_version = "3.5"

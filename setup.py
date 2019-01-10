@@ -1,17 +1,15 @@
 import os
 import sys
-import pathlib2
 
 import setuptools
 from setuptools.command.install import install
 
 VERSION = "0.0.15"
 
-# The directory containing this file
-HERE = pathlib2.Path(__file__).parent
 
-# The text of the README file
-README = (HERE / "README.md").read_text()
+def readme():
+    with open('README.md') as f:
+        return f.read()
 
 
 class VerifyVersionCommand(install):
@@ -34,7 +32,7 @@ setuptools.setup(
     author="Joan Valduvieco",
     author_email="jvalduvieco@gmail.com",
     description="Intercepts json formatted metrics from process stdin and sends to AWS Cloudwatch",
-    long_description=README,
+    long_description=readme(),
     long_description_content_type="text/markdown",
     url="https://github.com/jvalduvieco/stdin_to_cloudwatch",
     packages=["stdin_to_cloudwatch"],
@@ -46,7 +44,7 @@ setuptools.setup(
     cmdclass={
         'verify': VerifyVersionCommand,
     },
-    python_requires='>=2.7',
-    install_requires=['boto3', 'pathlib2'],
+    python_requires='>=3',
+    install_requires=['boto3'],
     entry_points={"console_scripts": ["stdin_to_cloudwatch=stdin_to_cloudwatch.__main__:run"]},
 )
