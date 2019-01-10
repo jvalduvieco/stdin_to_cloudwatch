@@ -37,7 +37,7 @@ setuptools.setup(
     url="https://github.com/jvalduvieco/stdin_to_cloudwatch",
     packages=["stdin_to_cloudwatch"],
     classifiers=[
-        "Programming Language :: Python :: 2",
+        "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
